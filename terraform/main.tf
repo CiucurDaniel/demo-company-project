@@ -8,7 +8,12 @@ terraform {
     }
   }
 
-  // TODO: Use backend for state
+  backend "azurerm" {
+    resource_group_name  = "terraform-state"
+    storage_account_name = "project0terraform0state" # project terraform state
+    container_name       = "terraform-state"
+    key                  = "project"
+  }
 }
 
 provider "azurerm" {
@@ -71,13 +76,13 @@ resource "azurerm_linux_virtual_machine" "db_vm" {
   network_interface_ids = [azurerm_network_interface.db_nic[count.index].id]
   size                  = "Standard_B1s"
 
-  admin_username        = "adminuser"
-  admin_password        = "Password123!"
+  admin_username                  = "adminuser"
+  admin_password                  = "Password123!"
   disable_password_authentication = false
 
   os_disk {
-    name              = "osdisk-db-${count.index}"
-    caching           = "ReadWrite"
+    name                 = "osdisk-db-${count.index}"
+    caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
   }
 
@@ -110,13 +115,13 @@ resource "azurerm_linux_virtual_machine" "middleware_vm" {
   network_interface_ids = [azurerm_network_interface.middleware_nic[count.index].id]
   size                  = "Standard_B1s"
 
-  admin_username        = "adminuser"
-  admin_password        = "Password123!"
+  admin_username                  = "adminuser"
+  admin_password                  = "Password123!"
   disable_password_authentication = false
 
   os_disk {
-    name              = "osdisk-middleware-${count.index}"
-    caching           = "ReadWrite"
+    name                 = "osdisk-middleware-${count.index}"
+    caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
   }
 
@@ -149,13 +154,13 @@ resource "azurerm_linux_virtual_machine" "ui_vm" {
   network_interface_ids = [azurerm_network_interface.ui_nic[count.index].id]
   size                  = "Standard_B1s"
 
-  admin_username        = "adminuser"
-  admin_password        = "Password123!"
+  admin_username                  = "adminuser"
+  admin_password                  = "Password123!"
   disable_password_authentication = false
 
   os_disk {
-    name              = "osdisk-ui-${count.index}"
-    caching           = "ReadWrite"
+    name                 = "osdisk-ui-${count.index}"
+    caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
   }
 
