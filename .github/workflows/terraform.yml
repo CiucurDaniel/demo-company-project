@@ -16,7 +16,7 @@ env:
   ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
 jobs:
-  terraform:
+  Terraform:
     name: "Terraform Infrastructure Change Management"
     runs-on: ubuntu-latest
     defaults:
@@ -59,8 +59,19 @@ jobs:
         if: steps.plan.outcome == 'success'
         run: terraform apply -auto-approve -input=false
       
+  GenarateDiagram:
+    name: "Generate cloud diagram"
+    needs: Terraform
+    runs-on: ubuntu-latest
+    container: 
+      image: docker://ciucurdaniel/terraview:latest
+    
+    defaults:
+      run:
+        shell: bash
+    
+    steps:
       - name: Generate diagram
-        uses: docker://ciucurdaniel/terraview:latest
         id: diagram
         if: steps.apply.outcome == 'success'
         run: |
