@@ -111,8 +111,13 @@ jobs:
         run: |
           new_diagram="diagram_${{ github.run_id }}.png"
           sed -i "s|!\[Cloud Architecture diagram\](diagram_.*\.png)|![Cloud Architecture diagram](${new_diagram})|" README.md
-      
-      - uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "Updating Cloud Architecture Diagram"
-      
+
+      - name: Commit and push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add diagram_*.png README.md
+          git commit -m "Update cloud architecture diagram"
+          git push
