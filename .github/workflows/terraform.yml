@@ -119,6 +119,6 @@ jobs:
           git config --global --add safe.directory /__w/demo-company-project/demo-company-project
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
-          git add diagram_*.png README.md
+          git add -A
           git commit -m "Update cloud architecture diagram"
           git push
