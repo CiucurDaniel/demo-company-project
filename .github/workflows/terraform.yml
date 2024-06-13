@@ -87,7 +87,6 @@ jobs:
           terraform version
           terraview print --help
 
-          cd .. 
           ls
           terraview print ./terraform \
                           --format png \
