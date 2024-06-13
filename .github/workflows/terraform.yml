@@ -80,6 +80,8 @@ jobs:
     steps:
       - name: Checkout the repository to the runner
         uses: actions/checkout@v4
+        with: 
+          set-safe-directory: 'true'
       
       - name: Delete old diagram
         run: |
