@@ -73,7 +73,6 @@ jobs:
     steps:
       - name: Generate diagram
         id: diagram
-        if: steps.apply.outcome == 'success'
         run: |
           echo "Generating diagram"
           dot -V
