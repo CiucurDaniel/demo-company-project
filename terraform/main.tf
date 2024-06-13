@@ -69,7 +69,7 @@ resource "azurerm_network_interface" "db_nic" {
 }
 
 resource "azurerm_linux_virtual_machine" "db_vm" {
-  count                 = 3
+  count                 = 1
   name                  = "db-vm-${count.index}"
   location              = azurerm_resource_group.project.location
   resource_group_name   = azurerm_resource_group.project.name
@@ -108,7 +108,7 @@ resource "azurerm_network_interface" "middleware_nic" {
 }
 
 resource "azurerm_linux_virtual_machine" "middleware_vm" {
-  count                 = 3
+  count               = 1
   name                  = "middleware-vm-${count.index}"
   location              = azurerm_resource_group.project.location
   resource_group_name   = azurerm_resource_group.project.name
@@ -147,7 +147,7 @@ resource "azurerm_network_interface" "ui_nic" {
 }
 
 resource "azurerm_linux_virtual_machine" "ui_vm" {
-  count                 = 3
+  count               = 1
   name                  = "ui-vm-${count.index}"
   location              = azurerm_resource_group.project.location
   resource_group_name   = azurerm_resource_group.project.name
