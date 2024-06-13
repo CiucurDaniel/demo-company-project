@@ -60,7 +60,11 @@ jobs:
         run: terraform apply -auto-approve -input=false
       
       - name: Generate diagram
+        uses: docker://ciucurdaniel/terraview:latest
         id: diagram
         if: steps.apply.outcome == 'success'
         run: |
           echo "Generating diagram"
+          dot -V
+          terraform version
+          terraview print --help
