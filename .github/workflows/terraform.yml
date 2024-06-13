@@ -79,6 +79,10 @@ jobs:
       - name: Checkout the repository to the runner
         uses: actions/checkout@v4
       
+      - name: Delete old diagram
+        run: |
+          rm -f diagram_*.png
+          
       - name: Generate diagram
         id: diagram
         run: |
@@ -93,10 +97,6 @@ jobs:
                           --url "azurerm://${ARM_SUBSCRIPTION_ID}@terraform-state/project0terraform0state/terraform-state/project"
           
           ls diagram_*.png
-
-      - name: Delete old diagram
-        run: |
-          rm -f diagram_*.png
 
       - name: Move new diagram
         run: |
