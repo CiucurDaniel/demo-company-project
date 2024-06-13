@@ -57,7 +57,7 @@ resource "azurerm_subnet" "ui_subnet" {
 
 # Database Layer VMs
 resource "azurerm_network_interface" "db_nic" {
-  count               = 3
+  count               = 1
   name                = "db-nic-${count.index}"
   location            = azurerm_resource_group.project.location
   resource_group_name = azurerm_resource_group.project.name
@@ -96,7 +96,7 @@ resource "azurerm_linux_virtual_machine" "db_vm" {
 
 # Middleware Layer VMs
 resource "azurerm_network_interface" "middleware_nic" {
-  count               = 3
+  count               = 1
   name                = "middleware-nic-${count.index}"
   location            = azurerm_resource_group.project.location
   resource_group_name = azurerm_resource_group.project.name
@@ -135,7 +135,7 @@ resource "azurerm_linux_virtual_machine" "middleware_vm" {
 
 # UI Layer VMs
 resource "azurerm_network_interface" "ui_nic" {
-  count               = 3
+  count               = 1
   name                = "ui-nic-${count.index}"
   location            = azurerm_resource_group.project.location
   resource_group_name = azurerm_resource_group.project.name
