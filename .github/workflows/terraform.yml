@@ -78,3 +78,10 @@ jobs:
           dot -V
           terraform version
           terraview print --help
+
+          cd .. 
+          terraview print print ./terraform \
+                                --format png \
+                                --url "azurerm://${ARM_SUBSCRIPTION_ID}@terraform-state/project0terraform0state/terraform-state/project"
+          
+          ls *.png
