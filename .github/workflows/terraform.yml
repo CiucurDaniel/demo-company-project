@@ -82,7 +82,7 @@ jobs:
       - name: Delete old diagram
         run: |
           rm -f diagram_*.png
-          
+
       - name: Generate diagram
         id: diagram
         run: |
@@ -108,12 +108,11 @@ jobs:
           new_diagram="diagram_${{ github.run_id }}.png"
           sed -i "s|!\[Cloud Architecture diagram\](diagram_.*\.png)|![Cloud Architecture diagram](${new_diagram})|" README.md
       
-      - name: Commit and push changes
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
+      - uses: actions/checkout@v4
+      - run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
           git add diagram_*.png README.md
           git commit -m "Update cloud architecture diagram"
           git push
+      
