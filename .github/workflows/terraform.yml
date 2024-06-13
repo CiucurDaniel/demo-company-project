@@ -68,6 +68,8 @@ jobs:
     name: "Generate cloud diagram"
     needs: Terraform
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     container: 
       image: docker://ciucurdaniel/terraview:latest
     
