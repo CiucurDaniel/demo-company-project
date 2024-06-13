@@ -5,4 +5,4 @@ Demonstration of Terraview CLI application.
 
 # Documentation
 
-![Cloud Architecture diagram](diagram_9503724736.png)
+![Cloud Architecture diagram](diagram_9503904625.png)
