@@ -92,7 +92,7 @@ jobs:
                           --format png \
                           --url "azurerm://${ARM_SUBSCRIPTION_ID}@terraform-state/project0terraform0state/terraform-state/project"
           
-          ls ./terraform/*.png
+          ls diagram_*.png
 
       - name: Delete old diagram
         run: |
@@ -100,9 +100,8 @@ jobs:
 
       - name: Move new diagram
         run: |
-          cd ./terraform
           new_diagram=$(ls diagram_*.png | head -n 1)
-          mv "$new_diagram" "../diagram_${{ github.run_id }}.png"
+          mv "$new_diagram" "diagram_${{ github.run_id }}.png"
 
       - name: Update README
         run: |
