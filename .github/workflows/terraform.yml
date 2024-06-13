@@ -64,7 +64,7 @@ jobs:
         if: steps.plan.outcome == 'success'
         run: terraform apply -auto-approve -input=false
       
-  GenarateDiagram:
+  GenerateDiagram:
     name: "Generate cloud diagram"
     needs: Terraform
     runs-on: ubuntu-latest
@@ -92,4 +92,29 @@ jobs:
                           --format png \
                           --url "azurerm://${ARM_SUBSCRIPTION_ID}@terraform-state/project0terraform0state/terraform-state/project"
           
-          ls *.png
+          ls ./terraform/*.png
+
+      - name: Delete old diagram
+        run: |
+          rm -f diagram_*.png
+
+      - name: Move new diagram
+        run: |
+          cd ./terraform
+          new_diagram=$(ls diagram_*.png | head -n 1)
+          mv "$new_diagram" "../diagram_${{ github.run_id }}.png"
+
+      - name: Update README
+        run: |
+          new_diagram="diagram_${{ github.run_id }}.png"
+          sed -i "s|!\[Cloud Architecture diagram\](diagram_.*\.png)|![Cloud Architecture diagram](${new_diagram})|" README.md
+      
+      - name: Commit and push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add diagram_*.png README.md
+          git commit -m "Update cloud architecture diagram"
+          git push
