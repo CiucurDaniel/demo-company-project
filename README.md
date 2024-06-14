@@ -5,7 +5,7 @@ Demonstration of Terraview CLI application.
 
 # Documentation
 
-![Cloud Architecture diagram](diagram_9507781955.png)
+![Cloud Architecture diagram](diagram_9517784552.png)
 
 The web server is the presentation tier and provides the user interface. This is usually a web page or website, such as an ecommerce site where the user adds products to the shopping cart, adds payment details or creates an account. The content can be static or dynamic, and is developed using HTML, CSS, and JavaScript.
 
