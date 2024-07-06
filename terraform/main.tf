@@ -20,6 +20,10 @@ provider "azurerm" {
   features {}
 }
 
+locals {
+  instance_replicas = 2
+}
+
 resource "azurerm_resource_group" "project" {
   name     = "project-rg"
   location = "West Europe"
@@ -57,7 +61,7 @@ resource "azurerm_subnet" "ui_subnet" {
 
 # Database Layer VMs
 resource "azurerm_network_interface" "db_nic" {
-  count               = 1
+  count               = local.instance_replicas
   name                = "db-nic-${count.index}"
   location            = azurerm_resource_group.project.location
   resource_group_name = azurerm_resource_group.project.name
@@ -69,7 +73,7 @@ resource "azurerm_network_interface" "db_nic" {
 }
 
 resource "azurerm_linux_virtual_machine" "db_vm" {
-  count                 = 1
+  count                 = local.instance_replicas
   name                  = "db-vm-${count.index}"
   location              = azurerm_resource_group.project.location
   resource_group_name   = azurerm_resource_group.project.name
@@ -96,7 +100,7 @@ resource "azurerm_linux_virtual_machine" "db_vm" {
 
 # Middleware Layer VMs
 resource "azurerm_network_interface" "middleware_nic" {
-  count               = 1
+  count               = local.instance_replicas
   name                = "middleware-nic-${count.index}"
   location            = azurerm_resource_group.project.location
   resource_group_name = azurerm_resource_group.project.name
@@ -108,7 +112,7 @@ resource "azurerm_network_interface" "middleware_nic" {
 }
 
 resource "azurerm_linux_virtual_machine" "middleware_vm" {
-  count                 = 1
+  count                 = local.instance_replicas
   name                  = "middleware-vm-${count.index}"
   location              = azurerm_resource_group.project.location
   resource_group_name   = azurerm_resource_group.project.name
@@ -135,7 +139,7 @@ resource "azurerm_linux_virtual_machine" "middleware_vm" {
 
 # UI Layer VMs
 resource "azurerm_network_interface" "ui_nic" {
-  count               = 1
+  count               = local.instance_replicas
   name                = "ui-nic-${count.index}"
   location            = azurerm_resource_group.project.location
   resource_group_name = azurerm_resource_group.project.name
@@ -147,7 +151,7 @@ resource "azurerm_network_interface" "ui_nic" {
 }
 
 resource "azurerm_linux_virtual_machine" "ui_vm" {
-  count                 = 1
+  count                 = local.instance_replicas
   name                  = "ui-vm-${count.index}"
   location              = azurerm_resource_group.project.location
   resource_group_name   = azurerm_resource_group.project.name
