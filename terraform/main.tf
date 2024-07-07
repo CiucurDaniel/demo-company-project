@@ -21,7 +21,7 @@ provider "azurerm" {
 }
 
 locals {
-  instance_replicas = 2
+  instance_replicas = 1
 }
 
 resource "azurerm_resource_group" "project" {
